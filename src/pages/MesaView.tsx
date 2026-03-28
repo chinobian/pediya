@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { Mesa, Categoria, Producto } from '../types'
 import { useCart } from '../hooks/useCart'
+import { useMesaStatus } from '../hooks/useMesaStatus'
 import { MenuSection } from '../components/MenuSection'
 import { Cart } from '../components/Cart'
 import { ActionButtons } from '../components/ActionButtons'
@@ -19,6 +20,8 @@ export function MesaView() {
 
   const { items, addItem, removeItem, clearCart, totalItems, totalPrecio } =
     useCart()
+
+  const { status, refresh: refreshStatus } = useMesaStatus(mesa?.id)
 
   useEffect(() => {
     async function fetchData() {
@@ -90,6 +93,7 @@ export function MesaView() {
     clearCart()
     setConfirming(false)
     setOrderSent(true)
+    refreshStatus()
     setTimeout(() => setOrderSent(false), 4000)
   }
 
@@ -97,6 +101,8 @@ export function MesaView() {
     const producto = productos.find((p) => p.id === productoId)
     if (producto) addItem(producto)
   }
+
+  const isBusy = status.type !== 'idle'
 
   if (loading) {
     return (
@@ -143,9 +149,25 @@ export function MesaView() {
       </header>
 
       <main className="max-w-lg mx-auto px-4 pt-5">
+        {/* Status banner */}
+        {isBusy && (
+          <div className="mb-5 bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-3.5 text-center">
+            <p className="text-amber-400 font-semibold text-sm mb-1">
+              {status.type === 'pedido_pendiente'
+                ? 'Tu pedido está en camino'
+                : status.accion === 'llamar_mozo'
+                  ? 'El mozo fue notificado'
+                  : 'La cuenta fue solicitada'}
+            </p>
+            <p className="text-neutral-400 text-xs">
+              Un mozo se va a acercar a tu mesa. Podés hacer nuevas acciones una vez que te atiendan.
+            </p>
+          </div>
+        )}
+
         {/* Action Buttons */}
         <div className="mb-6">
-          <ActionButtons mesaId={mesa!.id} />
+          <ActionButtons mesaId={mesa!.id} disabled={isBusy} onAction={refreshStatus} />
         </div>
 
         {/* Menu */}
@@ -177,6 +199,7 @@ export function MesaView() {
         onRemove={removeItem}
         onConfirm={handleConfirm}
         confirming={confirming}
+        disabled={isBusy}
       />
     </div>
   )

@@ -10,6 +10,7 @@ interface Props {
   onRemove: (productoId: string) => void
   onConfirm: () => void
   confirming: boolean
+  disabled?: boolean
 }
 
 export function Cart({
@@ -20,6 +21,7 @@ export function Cart({
   onRemove,
   onConfirm,
   confirming,
+  disabled,
 }: Props) {
   const [expanded, setExpanded] = useState(false)
 
@@ -95,10 +97,14 @@ export function Cart({
 
               <button
                 onClick={onConfirm}
-                disabled={confirming}
+                disabled={confirming || disabled}
                 className="w-full mt-4 bg-amber-500 hover:bg-amber-400 active:scale-[0.98] disabled:opacity-50 text-black font-bold py-3.5 rounded-xl text-base transition-all duration-150 cursor-pointer disabled:cursor-not-allowed"
               >
-                {confirming ? 'Enviando...' : 'Confirmar pedido'}
+                {disabled
+                  ? 'Esperá a que te atiendan'
+                  : confirming
+                    ? 'Enviando...'
+                    : 'Confirmar pedido'}
               </button>
             </div>
           </div>
