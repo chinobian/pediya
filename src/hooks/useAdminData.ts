@@ -199,13 +199,23 @@ export function useAdminData() {
   }, [enrichPedido])
 
   const marcarListo = useCallback(async (pedidoId: string) => {
+    // Optimistic update
+    const pedido = pendientes.find((p) => p.id === pedidoId)
+    setPendientes((prev) => prev.filter((p) => p.id !== pedidoId))
+    if (pedido) {
+      setListos((prev) => [{ ...pedido, estado: 'listo' }, ...prev])
+    }
+
     await supabase
       .from('pedidos')
       .update({ estado: 'listo' })
       .eq('id', pedidoId)
-  }, [])
+  }, [pendientes])
 
   const atenderAccion = useCallback(async (accionId: string) => {
+    // Optimistic update
+    setAcciones((prev) => prev.filter((a) => a.id !== accionId))
+
     await supabase
       .from('acciones_mesa')
       .update({ atendida: true })
