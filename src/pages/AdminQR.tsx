@@ -73,13 +73,12 @@ export function AdminQR() {
     <div>
       {/* Mobile header */}
       <header className="lg:hidden sticky top-0 z-30 bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800">
-        <div className="px-4 py-3">
+        <div className="px-4 py-2.5 flex items-center gap-3">
           <span className="text-amber-500 font-bold text-xl tracking-tight">
             pediya
-            <span className="text-neutral-500 font-normal text-sm ml-2">
-              QR
-            </span>
           </span>
+          <span className="text-neutral-600 text-lg font-light">|</span>
+          <img src="/garage-logo.svg" alt="Garage Craft Haus" className="h-5 opacity-70" />
         </div>
       </header>
 

@@ -47,13 +47,20 @@ export function AdminLayout() {
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex lg:flex-col lg:w-56 lg:shrink-0 bg-neutral-900 border-r border-neutral-800 sticky top-0 h-screen">
-        <div className="px-5 py-5 border-b border-neutral-800">
-          <span className="text-amber-500 font-bold text-xl tracking-tight">
-            pediya
-          </span>
-          <span className="text-neutral-500 font-normal text-sm ml-2">
-            admin
-          </span>
+        <div className="px-5 py-4 border-b border-neutral-800">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-amber-500 font-bold text-xl tracking-tight">
+              pediya
+            </span>
+            <span className="text-neutral-500 font-normal text-sm">
+              admin
+            </span>
+          </div>
+          <img
+            src="/garage-logo.svg"
+            alt="Garage Craft Haus"
+            className="h-6 opacity-70"
+          />
         </div>
         <nav className="flex-1 p-3 flex flex-col gap-1">
           {navItems.map((item) => (

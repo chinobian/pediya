@@ -63,13 +63,14 @@ export function AdminView() {
     <div>
       {/* Mobile header */}
       <header className="lg:hidden sticky top-0 z-30 bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <span className="text-amber-500 font-bold text-xl tracking-tight">
-            pediya
-            <span className="text-neutral-500 font-normal text-sm ml-2">
-              admin
+        <div className="px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-amber-500 font-bold text-xl tracking-tight">
+              pediya
             </span>
-          </span>
+            <span className="text-neutral-600 text-lg font-light">|</span>
+            <img src="/garage-logo.svg" alt="Garage Craft Haus" className="h-5 opacity-70" />
+          </div>
           <div className="flex items-center gap-3">
             {acciones.length > 0 && (
               <span className="bg-red-500/20 text-red-400 text-xs font-bold px-2.5 py-1 rounded-full">
