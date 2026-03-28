@@ -124,10 +124,18 @@ export function MesaView() {
     <div className="min-h-screen pb-24">
       {/* Header */}
       <header className="sticky top-0 z-30 bg-neutral-900/80 backdrop-blur-md border-b border-neutral-800">
-        <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
-          <span className="text-amber-500 font-bold text-lg tracking-tight">
-            pediya
-          </span>
+        <div className="max-w-lg mx-auto px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-amber-500 font-bold text-lg tracking-tight">
+              pediya
+            </span>
+            <span className="text-neutral-600 text-lg font-light">|</span>
+            <img
+              src="/garage-logo.svg"
+              alt="Garage Craft Haus"
+              className="h-7"
+            />
+          </div>
           <span className="bg-neutral-800 text-white text-sm font-semibold px-3 py-1 rounded-full">
             Mesa {numero}
           </span>
